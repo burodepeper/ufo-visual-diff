@@ -13,6 +13,8 @@ new VisualDiff()
 
 ## Development
 
+Source files are in _/src_, and [Grunt](https://www.gruntjs.com) is used to compile these into a _/dist_ directory which can be statically published, or even run locally.
+
 Dependencies:
 - Node.js
 
@@ -31,3 +33,5 @@ grunt watch
 
 - [ ] Add a 'Loading...' progress indicator
 - [ ] Add an interface to select sources and glyphs to load
+- [ ] Allow config via GET parameters
+- [ ] Allow local .ufo files to be dropped on the screen to set a src
