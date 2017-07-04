@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div id='visual-diff'></div>
+    <script src='js/lib/plist_parser.js'></script>
+    <script src='js/VisualDiff.js'></script>
+    <script src='js/UFO.js'></script>
+    <script src='js/UFOGlif.js'></script>
+    <script>
+    new VisualDiff()
+      .setContainer('visual-diff')
+      .setGlyphs(['a', 'A_', 'ampersand', 'at'])
+      .setHeight(240)
+      .addSrc('https://raw.githubusercontent.com/source-foundry/Hack-dev/usability/source/ufo/Hack/Hack-Regular.ufo')
+      .addSrc('https://raw.githubusercontent.com/chrissimpkins/Hack/master/source/ufo/vfb2ufo/Hack-Regular.ufo')
+      .init()
+    </script>
+  </body>
+</html>
