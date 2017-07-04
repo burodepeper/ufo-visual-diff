@@ -4,12 +4,12 @@ class UFOGlif {
     this.ufo = ufo
 
     const parser = new DOMParser()
-    this.xml = parser.parseFromString(xml, 'text/xml').childNodes[0]
+    this.xml = parser.parseFromString(this.raw, 'text/xml')
+    this.xml = this.xml.childNodes[0]
     this.data = this.parseXML(this.xml)
 
     this.data.advance.height = this.ufo.getUnitsPerEm()
     this.ratio = this.data.advance.width / this.data.advance.height
-    // console.log(this)
   }
 
   parseXML(xml) {
@@ -103,7 +103,8 @@ class UFOGlif {
     context.globalCompositeOperation = 'xor'
     context.fillStyle = color
 
-    for (const contour of this.getContours()) {
+    const contours = this.getContours()
+    for (const contour of contours) {
       const points = contour.point
 
       // Duplicate the first point and move it to the back of the contour to close the path
@@ -142,6 +143,11 @@ class UFOGlif {
   }
 
   getContours() {
-    return this.data.outline.contour
+    let contours = this.data.outline.contour
+    // NOTE: an array is expected
+    if (!Array.isArray(contours)) {
+      contours = [contours]
+    }
+    return contours
   }
 }
