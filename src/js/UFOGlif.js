@@ -95,10 +95,12 @@ class UFOGlif {
     const color = this.getColor()
     const scale = this.getScale()
     const height = this.getHeight()
-    const yOffset = this.getYOffset() + Math.random() * 10
-    // const contours = this.getContours()
+    let yOffset = this.getYOffset()
 
-    context.globalCompositeOperation = 'multiply'
+    // NOTE: Temporary random offset to create an artificial difference
+    yOffset += Math.random() * 10
+
+    context.globalCompositeOperation = 'xor'
     context.fillStyle = color
 
     for (const contour of this.getContours()) {

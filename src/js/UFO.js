@@ -29,11 +29,8 @@ class UFO {
   }
 
   async init() {
-    // TODO: load font info
     await this.loadFontInfo()
     await this.loadGlyphs()
-    console.log('UFO.init() Complete')
-    return true
   }
 
   async loadFontInfo() {
@@ -54,17 +51,7 @@ class UFO {
 
   parsePList(data) {
     this.fontInfo = PlistParser.parse(data)
-    // this.getMetrics()
-    return true
   }
-
-  // getMetrics() {
-  //   this.ascender = this.fontInfo.ascender
-  //   this.capHeight = this.fontInfo.capHeight
-  //   this.descender = this.fontInfo.descender
-  //   this.unitsPerEm = this.fontInfo.unitsPerEm
-  //   this.xHeight = this.fontInfo.xHeight
-  // }
 
   getUnitsPerEm() {
     return this.fontInfo.unitsPerEm

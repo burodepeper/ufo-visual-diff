@@ -55,6 +55,10 @@ class VisualDiff {
     return this.height
   }
 
+  getWidth() {
+    return this.ufos[0].getWidthForHeight(this.getHeight())
+  }
+
   addSrc(src) {
     if (typeof src !== 'string') {
       throw 'VisualDiff.addSrc() {src} is expected to be a string'
@@ -69,17 +73,10 @@ class VisualDiff {
 
   async init() {
     this.createCanvas()
-
     await this.initUfos()
-    console.log('VisualDiff.init() All UFO data loaded')
-
     this.resizeCanvas()
-    console.log('VisualDiff.init() Canvas resized to match first glyph')
-
-    // TODO: instruct glyphs to draw themselves, and in what color
-    this.draw()
-
-    console.log(this)
+    await this.draw()
+    console.log('VisualDiff.init() Done!')
   }
 
   async initUfos() {
@@ -88,15 +85,30 @@ class VisualDiff {
     }
   }
 
-  draw() {
+  async draw() {
+    const width = this.getWidth()
     const height = this.getHeight()
     const context = this.getContext()
+    const frames = []
+
     for (const ufo of this.ufos) {
       ufo.setContext(context)
       ufo.setHeight(height)
       const color = this.getNextColor()
       ufo.setColor(color)
       ufo.draw()
+
+      // Save the frame for later compositing
+      const frame = context.getImageData(0, 0, width, height)
+      frames.push(frame)
+      context.clearRect(0, 0, width, height)
+    }
+
+    // Composite the separate frames on top of each other, and multiply to form the final image
+    context.globalCompositeOperation = 'multiply'
+    for (const frame of frames) {
+      const imageBitmap = await createImageBitmap(frame, 0, 0, width, height)
+      context.drawImage(imageBitmap, 0, 0)
     }
   }
 
@@ -118,7 +130,7 @@ class VisualDiff {
 
   resizeCanvas() {
     const height = this.getHeight()
-    const width = this.ufos[0].getWidthForHeight(height)
+    const width = this.getWidth()
     this.canvas.setAttribute('width', width)
     this.canvas.setAttribute('height', height)
   }
