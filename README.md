@@ -26,3 +26,8 @@ grunt
 # Watch for filesystem changes, and only run necessary tasks
 grunt watch
 ```
+
+## TODO
+
+- [ ] Add a 'Loading...' progress indicator
+- [ ] Add an interface to select sources and glyphs to load
