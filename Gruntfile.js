@@ -40,18 +40,22 @@ module.exports = function (grunt) {
       "js": {
         files: ['src/js/**/*.js'],
         tasks: ['js']
+      },
+      'static': {
+        files: ['src/static/**/*.*'],
+        tasks: ['static']
       }
     }
 
   })
 
-  grunt.loadNpmTasks('eslint-plugin-prettier')
   grunt.loadNpmTasks('grunt-contrib-copy')
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-eslint')
   grunt.loadNpmTasks('grunt-prettier')
 
-  grunt.registerTask('default', ['js', 'copy:static'])
+  grunt.registerTask('default', ['js', 'static'])
   grunt.registerTask('js', ['prettier', 'eslint', 'copy:js'])
+  grunt.registerTask('static', ['copy:static'])
 
 }

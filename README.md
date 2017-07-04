@@ -17,5 +17,12 @@ Dependencies:
 - Node.js
 
 ```sh
+# Install packages
 npm install
+
+# Run all tasks and generate a /dist
+grunt
+
+# Watch for filesystem changes, and only run necessary tasks
+grunt watch
 ```
