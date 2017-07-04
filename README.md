@@ -31,7 +31,7 @@ grunt watch
 
 ## TODO
 
-- [ ] Add a 'Loading...' progress indicator
 - [ ] Add an interface to select sources and glyphs to load
 - [ ] Allow config via GET parameters
+- [ ] Do not allow modifications after init() has been invoked
 - [ ] Allow local .ufo files to be dropped on the screen to set a src

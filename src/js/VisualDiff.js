@@ -126,6 +126,9 @@ class VisualDiff {
     this.canvas = document.createElement('canvas')
     this.context = this.canvas.getContext('2d')
     this.element.appendChild(this.canvas)
+
+    this.context.font = '14px sans-serif'
+    this.context.fillText('Loading...', 10, 15)
   }
 
   resizeCanvas() {
