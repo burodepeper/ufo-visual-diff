@@ -35,3 +35,9 @@ grunt watch
 - [ ] Allow config via GET parameters
 - [ ] Do not allow modifications after init() has been invoked
 - [ ] Allow local .ufo files to be dropped on the screen to set a src
+- [ ] Draw qcurve, and possibly higher order curves
+- [ ] Draw components
+
+### Docs
+
+- http://unifiedfontobject.org/versions/ufo3/glyphs/glif/

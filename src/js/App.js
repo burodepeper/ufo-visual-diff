@@ -55,11 +55,11 @@ class App {
     this.diff
       .setGlyphs(glyphs)
       .setHeight(height)
+      // .addSrc(
+      //   'https://raw.githubusercontent.com/source-foundry/Hack-dev/usability/source/ufo/Hack/Hack-Regular.ufo'
+      // )
       .addSrc(
-        'https://raw.githubusercontent.com/source-foundry/Hack-dev/usability/source/ufo/Hack/Hack-Regular.ufo'
-      )
-      .addSrc(
-        'https://raw.githubusercontent.com/chrissimpkins/Hack/master/source/ufo/vfb2ufo/Hack-Regular.ufo'
+        'https://raw.githubusercontent.com/chrissimpkins/Hack/master/source/ufo/Hack-Regular.ufo'
       )
       .init()
   }

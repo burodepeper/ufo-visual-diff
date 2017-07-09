@@ -1,5 +1,7 @@
 class UFOGlif {
   constructor(xml, ufo) {
+    this.UFO2 = '1'
+    this.UFO3 = '2'
     this.raw = xml
     this.ufo = ufo
 
@@ -47,6 +49,14 @@ class UFOGlif {
     }
 
     return data
+  }
+
+  getName() {
+    return this.data.name
+  }
+
+  getFormat() {
+    return this.data.format
   }
 
   getRatio() {
@@ -106,9 +116,38 @@ class UFOGlif {
     const contours = this.getContours()
     for (const contour of contours) {
       const points = contour.point
+      /*
+      Shift the points of the contour, so that the first point is _not_ of the
+      type line, curve or qcurve. It is impossible to draw either of those
+      without having a previous reference, or one or two controlpoints.
+      */
+      let typeDetected = false
+      while (!typeDetected) {
+        const point = points[0]
+        typeDetected =
+          point.type === 'line' ||
+          point.type === 'curve' ||
+          point.type === 'qcurve'
+        points.push(points.shift())
+      }
 
-      // Duplicate the first point and move it to the back of the contour to close the path
-      points.push(points[0])
+      /*
+      We assume that we are only going to draw closed contours, so we duplicate
+      the first few points until we've found a point to draw (type is line, curve or qcurve) and add them to the back of the contour to automatically
+      close the shape.
+      */
+      let pointFound = false
+      let i = 0
+      while (!pointFound) {
+        const point = points[i]
+        points.push(point)
+        pointFound =
+          point.type === 'line' ||
+          point.type === 'curve' ||
+          point.type === 'qcurve'
+        i++
+      }
+      // points.push(points[0])
 
       context.beginPath()
       let controlPoints = []
@@ -119,18 +158,36 @@ class UFOGlif {
         point._x = x
         point._y = y
 
-        if (p === 0) {
+        if (p === 0 || point.type === 'move') {
           context.moveTo(x, y)
+          controlPoints.push(point)
         } else if (point.type === 'line') {
           context.lineTo(x, y)
           controlPoints = []
-        } else if (point.type === 'curve') {
+        } else if (point.type === 'curve' || point.type === 'qcurve') {
           if (controlPoints.length === 2) {
             const x1 = controlPoints[0]._x
             const y1 = controlPoints[0]._y
             const x2 = controlPoints[1]._x
             const y2 = controlPoints[1]._y
             context.bezierCurveTo(x1, y1, x2, y2, x, y)
+          } else if (controlPoints.length === 1) {
+            const x1 = controlPoints[0]._x
+            const y1 = controlPoints[0]._y
+            context.quadraticCurveTo(x1, y1, x, y)
+          } else if (controlPoints.length === 0) {
+            context.lineTo(x, y)
+          } else {
+            if (this.getFormat() === this.UFO2) {
+              console.warn(
+                `UFOGlif[${this.getName()}].draw() Higher order bezier curves are not supported`
+              )
+            } else {
+              console.warn(
+                `UFOGlif[${this.getName()}].draw() Too many control points:`,
+                controlPoints
+              )
+            }
           }
           controlPoints = []
         } else {
