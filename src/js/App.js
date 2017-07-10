@@ -14,15 +14,16 @@ class App {
     this.glyphsInput.setAttribute('type', 'text')
     this.glyphsInput.setAttribute('placeholder', 'Glyphs (comma separated)')
     this.glyphsInput.setAttribute('value', 'O_, zero, eight, B_')
+    // this.glyphsInput.setAttribute('value', 'at')
     this.interfaceContainer.appendChild(this.glyphsInput)
 
     this.heightSelect = document.createElement('select')
-    const heights = [32, 64, 96, 128, 192, 256, 512]
+    const heights = [32, 64, 96, 128, 192, 256, 512, 1024]
     heights.forEach(height => {
       const option = document.createElement('option')
       option.setAttribute('value', height)
       option.textContent = height + 'px'
-      if (height === 128) {
+      if (height === 256) {
         option.selected = true
       }
       this.heightSelect.appendChild(option)
@@ -58,8 +59,17 @@ class App {
       // .addSrc(
       //   'https://raw.githubusercontent.com/source-foundry/Hack-dev/usability/source/ufo/Hack/Hack-Regular.ufo'
       // )
+      // .addSrc(
+      //   'https://raw.githubusercontent.com/chrissimpkins/Hack/master/source/ufo/Hack-Regular.ufo'
+      // )
+      // .addSrc(
+      //   'https://raw.githubusercontent.com/chrissimpkins/Hack/master/source/deprecated/ufo/vfb2ufo/Hack-Regular.ufo'
+      // )
       .addSrc(
-        'https://raw.githubusercontent.com/chrissimpkins/Hack/master/source/ufo/Hack-Regular.ufo'
+        'https://raw.githubusercontent.com/burodepeper/Hack/master/source/ufo/Hack-Regular-PS.ufo'
+      )
+      .addSrc(
+        'https://raw.githubusercontent.com/burodepeper/Hack/master/source/ufo/Hack-Regular-TT.ufo'
       )
       .init()
   }

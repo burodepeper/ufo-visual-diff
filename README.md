@@ -37,7 +37,9 @@ grunt watch
 - [ ] Allow local .ufo files to be dropped on the screen to set a src
 - [ ] Draw qcurve, and possibly higher order curves
 - [ ] Draw components
+- [ ] TODO: https://stackoverflow.com/questions/20733790/truetype-fonts-glyph-are-made-of-quadratic-bezier-why-do-more-than-one-consecu#20772557
 
 ### Docs
 
 - http://unifiedfontobject.org/versions/ufo3/glyphs/glif/
+- https://github.com/googlei18n/cu2qu
