@@ -168,18 +168,30 @@ class UFOGlif {
           } else if (controlPoints.length === 0) {
             context.lineTo(x, y)
             controlPoints = []
-          } else {
-            if (this.getFormat() === this.UFO2) {
-              console.warn(
-                `UFOGlif[${this.getName()}].draw() Higher order bezier curves are not supported`
-              )
-              console.log('Control points:', controlPoints)
+          } else if (this.getFormat() === this.UFO2) {
+            if (point.type === 'qcurve') {
+              for (let c = 0; c < controlPoints.length - 1; c++) {
+                const px = (controlPoints[c]._x + controlPoints[c + 1]._x) / 2
+                const py = (controlPoints[c]._y + controlPoints[c + 1]._y) / 2
+                const x1 = controlPoints[c]._x
+                const y1 = controlPoints[c]._y
+                context.quadraticCurveTo(x1, y1, px, py)
+              }
+              const x1 = controlPoints[controlPoints.length - 1]._x
+              const y1 = controlPoints[controlPoints.length - 1]._y
+              context.quadraticCurveTo(x1, y1, x, y)
             } else {
               console.warn(
-                `UFOGlif[${this.getName()}].draw() Too many control points:`,
+                `UFOGlif[${this.getName()}].draw() Higher order cubic curves are not supported (yet)`,
+                point,
                 controlPoints
               )
             }
+          } else {
+            console.warn(
+              `UFOGlif[${this.getName()}].draw() Too many control points:`,
+              controlPoints
+            )
           }
           controlPoints = []
         } else {

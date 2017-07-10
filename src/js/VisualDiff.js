@@ -76,7 +76,6 @@ class VisualDiff {
     await this.initUfos()
     this.resizeCanvas()
     await this.draw()
-    console.log('VisualDiff.init() Done!')
   }
 
   async initUfos() {

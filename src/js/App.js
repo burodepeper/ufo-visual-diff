@@ -14,7 +14,7 @@ class App {
     this.glyphsInput.setAttribute('type', 'text')
     this.glyphsInput.setAttribute('placeholder', 'Glyphs (comma separated)')
     this.glyphsInput.setAttribute('value', 'O_, zero, eight, B_')
-    // this.glyphsInput.setAttribute('value', 'at')
+    // this.glyphsInput.setAttribute('value', 'zero')
     this.interfaceContainer.appendChild(this.glyphsInput)
 
     this.heightSelect = document.createElement('select')
@@ -23,7 +23,7 @@ class App {
       const option = document.createElement('option')
       option.setAttribute('value', height)
       option.textContent = height + 'px'
-      if (height === 256) {
+      if (height === 512) {
         option.selected = true
       }
       this.heightSelect.appendChild(option)
